@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
-import sqlite3
 import db
-import bcrypt
+import player
 import werkzeug.security
 
 app = Flask(__name__)
@@ -44,6 +43,12 @@ def tryReg():
     hashPassword = werkzeug.security.generate_password_hash(pwd)
     db.addData(name, hashPassword)
     return render_template('login.html')
+
+
+@app.route('/joueurs')
+def allPlayerPage():
+    allPlayerList = player.getAllPlayer()
+    return render_template('player.html', allPlayer=allPlayerList)
 
 
 if __name__ == '__main__':

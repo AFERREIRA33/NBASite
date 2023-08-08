@@ -9,11 +9,22 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <nav class="navbar navbar-light bg-light">
         <form class="container-fluid justify-content-start">
-            <button class="btn btn-outline-success me-2" type="button">Login</button>
-            <button class="btn btn-outline-danger me-2" type="button">Main button</button>
-            <button class="btn btn-sm btn-outline-secondary" type="button">Joueurs</button>
-            <button class="btn btn-sm btn-outline-secondary" type="button">Equipes</button>
-            <button class="btn btn-sm btn-outline-secondary" type="button">Matchs</button>
+            {% extends "base.html" %}
+            {% block content %}
+            {% if condition %}
+            <button class="btn btn-outline-danger me-2" type="button" onclick="window.location.href = '/login';">Main
+                button</button>
+            {% else %}
+            <button class="btn btn-outline-success me-2" type="button" onclick="window.location.href = '/login';">Main
+                button</button>
+            {% endif %}
+            {% endblock content %}
+            <button class="btn btn-sm btn-outline-secondary" type="button"
+                onclick="window.location.href = '/joueurs';">Joueurs</button>
+            <button class="btn btn-sm btn-outline-secondary" type="button"
+                onclick="window.location.href = '/equipes';">Equipes</button>
+            <button class="btn btn-sm btn-outline-secondary" type="button"
+                onclick="window.location.href = '/matchs';">Matchs</button>
         </form>
     </nav>
 </head>
