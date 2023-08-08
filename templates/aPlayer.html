@@ -20,7 +20,7 @@
             {% endblock content %}
             <form action="/joueurs" method="GET">
                 <button class="btn btn-sm btn-outline-secondary" type="submit" name="pageNum" value=1
-                    formaction="/joueurs">Joueurs</button>
+                    >Joueurs</button>
             </form>
             <button class="btn btn-sm btn-outline-secondary" type="button"
                 onclick="window.location.href = '/equipes';">Equipes</button>
@@ -31,35 +31,37 @@
 </head>
 
 <body style="background-color:gray;">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><button class="page-link" href="#">Previous</button></li>
-            {% for i in range(53) %}
-            {% if i != 0%}
-            <form action="/joueurs" method="GET">
-                <li class="page-item"><button class="page-link" type="submit" name="pageNum" value="{{ i }}">{{ i
-                        }}</button></li>
-            </form>
-            {% endif %}
-            {% endfor %}
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </nav>
-    <div class="row row-cols-6 g-3">
-        {% for player in allPlayer %}
-        <div class="col">
-            <div class="card" style="width: 18rem; background-color:darkgrey;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ player['firstName'] }}</h5>
-                    <p class="card-text">{{ player['lastName'] }}</p>
-                    <form action="/joueur" method="POST">
-                        <button class="btn btn-primary " type="submit" name="id" value="{{ player['idPlayer'] }}">Plus
-                            d'information</button>
-                    </form>
-                </div>
+    <div class="col d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ playerInfo['first_name'] }} {{ playerInfo['last_name'] }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% block body %}
+                {% if playerInfo['position'] %}
+                <li class="list-group-item">Position : {{ playerInfo['position'] }}</li>
+                {% endif %}
+                {% if playerInfo['height_feet'] %}
+                <li class="list-group-item">Height feet : {{ playerInfo['height_feet'] }}</li>
+                {% endif %}
+                {% if playerInfo['height_inches'] %}
+                <li class="list-group-item">Height inches : {{ playerInfo['height_inches'] }}</li>
+                {% endif %}
+                {% if playerInfo['weight_pounds'] %}
+                <li class="list-group-item">Weight pounds : {{ playerInfo['weight_pounds'] }}</li>
+                {% endif %}
+                {% endblock body %}
+            </ul>
+            <div class="card-body">
+                <form action="/equipe" method="POST">
+                    <p> Team :
+                        <button class="btn btn-primary " type="submit" name="id"
+                            value="{{ playerInfo['team']['id'] }}">{{
+                            playerInfo['team']['name'] }}</button>
+                    </p>
+                </form>
             </div>
         </div>
-        {% endfor %}
     </div>
 </body>
 
