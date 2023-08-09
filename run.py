@@ -49,7 +49,7 @@ def tryReg():
 def allPlayerPage():
     page = request.args.get('pageNum')
     allPlayerList = player.getAllPlayer(page)
-    return render_template('player.html', allPlayer=allPlayerList)
+    return render_template('player.html', allPlayer=allPlayerList, actualPage=int(page))
 
 
 @app.route('/joueur', methods=['POST'])

@@ -9,12 +9,10 @@ def getAllPlayer(pageNum):
     data = response.read()
     dict = json.loads(data)
     num = 0
-    if dict['meta']['total_count'] - (int(pageNum)*100) > 100:
+    if dict['meta']['total_count'] - (int(pageNum)*100) > 0:
         num = 100
     else:
         num = dict['meta']['total_count'] - (int(pageNum)*100) + 100
-    print("////////////////////////////////////////////////////" +
-          str(num) + " / " + pageNum + " / " + str(dict['meta']['total_count']))
     for i in range(num):
         firstName = dict['data'][i]['first_name']
         lastName = dict['data'][i]['last_name']
