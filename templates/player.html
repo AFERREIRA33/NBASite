@@ -44,6 +44,18 @@
             {% endfor %}
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>
+        <ul class="pagination">
+            <li class="page-item"><button class="page-link" href="#">Previous</button></li>
+            {% for i in range(53) %}
+            {% if i != 0%}
+            <form action="/joueurs" method="GET">
+                <li class="page-item"><button class="page-link" type="submit" name="pageNum" value="{{ i }}">{{ i
+                        }}</button></li>
+            </form>
+            {% endif %}
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
     </nav>
     <div class="row row-cols-6 g-3">
         {% for player in allPlayer %}
