@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import db
 import player
+import team
 import werkzeug.security
 
 app = Flask(__name__)
@@ -57,6 +58,13 @@ def playerPage():
     idPlayer = request.form['id']
     playerInfo = player.getAPlayer(idPlayer)
     return render_template('aPlayer.html', playerInfo=playerInfo)
+
+
+@app.route('/equipes', methods=['GET'])
+def allTeamPage():
+    page = request.args.get('pageNum')
+    allTeamList = team.getAllTeam(page)
+    return render_template('team.html', allTeam=allTeamList, actualPage=int(page))
 
 
 @app.route('/equipe', methods=['POST'])
