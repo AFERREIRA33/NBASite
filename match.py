@@ -23,3 +23,11 @@ def getAllMatch(pageNum):
         result.append(
             {"home": home, "visitor": visitor, "idMatch": idMatch, "date": date})
     return result, dict['meta']['total_pages']
+
+
+def getAMatch(idMatch):
+    url = "https://www.balldontlie.io/api/v1/games/" + idMatch
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    dict = json.loads(data)
+    return "toto"
