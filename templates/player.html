@@ -35,24 +35,17 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <form action="/joueurs" method="GET">
-                {% if (actualPage - 1) < 1 %} <li class="page-item"><button class="page-link" type="submit"
-                        name="pageNum" value="{{ actualPage }}">Previous</button>
-                    </li>
-                    {% else %}
-                    <li class="page-item"><button class="page-link" type="submit" name="pageNum"
-                            value="{{ actualPage - 1 }}">Previous</button>
-                    </li>
-                    {% endif %}
-            </form>
-            <form action="/joueurs" method="GET">
-                {% if (actualPage + 1) > 52 %} <li class="page-item"><button class="page-link" type="submit"
-                        name="pageNum" value="{{ actualPage }}">Next</button>
-                </li>
-                {% else %}
+                {% if (actualPage - 1) >= 1 %}
                 <li class="page-item"><button class="page-link" type="submit" name="pageNum"
-                        value="{{ actualPage + 1 }}">Next</button>
+                        value="{{ actualPage - 1 }}">Previous</button>
                 </li>
                 {% endif %}
+            </form>
+            <form action="/joueurs" method="GET">
+                {% if (actualPage + 1) <= 52 %} <li class="page-item"><button class="page-link" type="submit"
+                        name="pageNum" value="{{ actualPage + 1 }}">Next</button>
+                    </li>
+                    {% endif %}
             </form>
         </ul>
         <ul class="pagination justify-content-center">

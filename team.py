@@ -1,6 +1,7 @@
 
 import urllib.request
 import json
+import player
 
 
 def getAllTeam(pageNum):
@@ -22,6 +23,35 @@ def getAllTeam(pageNum):
     return result
 
 
-def getATeam():
-
-    return "toto"
+def getATeam(idTeam, teamFirst, teamLast, page):
+    url = "https://www.balldontlie.io/api/v1/teams/" + idTeam
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    dict = json.loads(data)
+    print(dict)
+    result = []
+    teamFirst = int(teamFirst)
+    teamLast = int(teamLast)
+    if page == "+":
+        playerActualPage = str(teamLast)
+        teamFirst = teamLast + 1
+        while(len(result) < 6 and int(playerActualPage) < 51):
+            playerActualPage = str(int(playerActualPage) + 1)
+            allPlayer = player.getAllPlayer(playerActualPage)
+            for i in range(len(allPlayer)):
+                if allPlayer[i]['idTeam'] == int(idTeam):
+                    result.append(allPlayer[i])
+        teamLast = int(playerActualPage)
+    else:
+        playerActualPage = str(teamFirst)
+        teamLast = teamFirst - 1
+        while(len(result) < 6 and int(playerActualPage) > 1):
+            playerActualPage = str(int(playerActualPage) - 1)
+            allPlayer = player.getAllPlayer(playerActualPage)
+            for i in range(len(allPlayer)):
+                if allPlayer[i]['idTeam'] == int(idTeam):
+                    result.append(allPlayer[i])
+        teamFirst = int(playerActualPage)
+    print(result)
+    print(str(teamFirst) + "/" + str(teamLast))
+    return dict, result, teamFirst, teamLast

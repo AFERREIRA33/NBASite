@@ -17,13 +17,13 @@ def getAllPlayer(pageNum):
         firstName = dict['data'][i]['first_name']
         lastName = dict['data'][i]['last_name']
         idPlayer = dict['data'][i]['id']
+        idTeam = dict['data'][i]['team']['id']
         result.append(
-            {"firstName": firstName, "lastName": lastName, "idPlayer": idPlayer})
+            {"firstName": firstName, "lastName": lastName, "idPlayer": idPlayer, "idTeam": idTeam})
     return result
 
 
 def getAPlayer(idPlayer):
-    result = []
     url = "https://www.balldontlie.io/api/v1/players/" + idPlayer
     response = urllib.request.urlopen(url)
     data = response.read()

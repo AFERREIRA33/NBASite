@@ -71,6 +71,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ team['name'] }}</h5>
                     <form action="/equipe" method="POST">
+                        <input type="hidden" name="teamFirst" value=0></input>
+                        <input type="hidden" name="teamLast" value=0></input>
+                        <input type="hidden" name="page" value="+"></input>
                         <button class="btn btn-primary " type="submit" name="id" value="{{ team['idTeam'] }}">Plus
                             d'information</button>
                     </form>

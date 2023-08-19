@@ -55,7 +55,11 @@
             </ul>
             <div class="card-body">
                 <form action="/equipe" method="POST">
+                    <input type="hidden" name="teamPlayerPage" value="1"></input>
                     <p> Team :
+                        <input type="hidden" name="teamFirst" value=0></input>
+                        <input type="hidden" name="teamLast" value=0></input>
+                        <input type="hidden" name="page" value="+"></input>
                         <button class="btn btn-primary " type="submit" name="id"
                             value="{{ playerInfo['team']['id'] }}">{{
                             playerInfo['team']['name'] }}</button>

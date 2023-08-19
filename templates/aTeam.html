@@ -32,7 +32,69 @@
 </head>
 
 <body style="background-color:gray;">
-
+    <div class="col d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ teamInfo['name'] }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% block body %}
+                {% if teamInfo['full_name'] %}
+                <li class="list-group-item">nom complet : {{ teamInfo['full_name'] }}</li>
+                {% endif %}
+                {% if teamInfo['abbreviation'] %}
+                <li class="list-group-item">Abbreviation : {{ teamInfo['abbreviation'] }}</li>
+                {% endif %}
+                {% if teamInfo['city'] %}
+                <li class="list-group-item">Ville : {{ teamInfo['city'] }}</li>
+                {% endif %}
+                {% if teamInfo['conference'] %}
+                <li class="list-group-item">Conference : {{ teamInfo['conference'] }}</li>
+                {% endif %}
+                {% if teamInfo['division'] %}
+                <li class="list-group-item">Division : {{ teamInfo['division'] }}</li>
+                {% endif %}
+                {% endblock body %}
+            </ul>
+        </div>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <form action="/equipe" method="POST">
+                <input type="hidden" name="id" value="{{ teamInfo['id'] }}">
+                <input type="hidden" name="teamFirst" value="{{ teamFirst }}">
+                <input type="hidden" name="teamLast" value="{{ teamLast }}">
+                {% if (teamFirst - 1) >= 1 %}
+                <li class="page-item"><button class="page-link" type="submit" name="page" value="-">Previous</button>
+                </li>
+                {% endif %}
+            </form>
+            <form action="/equipe" method="POST">
+                <input type="hidden" name="id" value="{{ teamInfo['id'] }}">
+                <input type="hidden" name="teamFirst" value="{{ teamFirst }}">
+                <input type="hidden" name="teamLast" value="{{ teamLast }}">
+                {% if (teamLast + 1) <= 51 %} <li class="page-item"><button class="page-link" type="submit" name="page"
+                        value="+">Next</button></li>
+                    {% endif %}
+            </form>
+        </ul>
+    </nav>
+    <div class="row row-cols-6 g-3">
+        {% for player in allPlayer %}
+        <div class="col">
+            <div class="card" style="width: 18rem; background-color:darkgrey;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ player['firstName'] }}</h5>
+                    <p class="card-text">{{ player['lastName'] }}</p>
+                    <form action="/joueur" method="POST">
+                        <button class="btn btn-primary " type="submit" name="id" value="{{ player['idPlayer'] }}">Plus
+                            d'information</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 
 </html>

@@ -69,7 +69,12 @@ def allTeamPage():
 
 @app.route('/equipe', methods=['POST'])
 def equipePage():
-    return "toto"
+    idTeam = request.form['id']
+    page = request.form['page']
+    teamFirst = request.form['teamFirst']
+    teamLast = request.form['teamLast']
+    teamInfo, allPlayer,teamFirst, teamLast = team.getATeam(idTeam, teamFirst, teamLast, page)
+    return render_template('aTeam.html', teamInfo=teamInfo, allPlayer=allPlayer, teamFirst=teamFirst, teamLast=teamLast)
 
 
 if __name__ == '__main__':
