@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import db
 import player
 import team
+import match
 import werkzeug.security
 
 app = Flask(__name__)
@@ -73,8 +74,16 @@ def equipePage():
     page = request.form['page']
     teamFirst = request.form['teamFirst']
     teamLast = request.form['teamLast']
-    teamInfo, allPlayer,teamFirst, teamLast = team.getATeam(idTeam, teamFirst, teamLast, page)
+    teamInfo, allPlayer, teamFirst, teamLast = team.getATeam(
+        idTeam, teamFirst, teamLast, page)
     return render_template('aTeam.html', teamInfo=teamInfo, allPlayer=allPlayer, teamFirst=teamFirst, teamLast=teamLast)
+
+
+@app.route('/matchs', methods=['GET'])
+def allMatchPage():
+    page = request.args.get('pageNum')
+    allMatch, totalPage = match.getAllMatch(page)
+    return render_template('match.html', allMatch=allMatch, totalPage=totalPage, actualPage=int(page))
 
 
 if __name__ == '__main__':

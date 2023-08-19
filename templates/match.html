@@ -32,7 +32,39 @@
 </head>
 
 <body style="background-color:gray;">
-
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <form action="/matchs" method="GET">
+                {% if (actualPage - 1) >= 1 %}
+                <li class="page-item"><button class="page-link" type="submit" name="pageNum"
+                        value="{{ actualPage - 1 }}">Previous</button>
+                </li>
+                {% endif %}
+            </form>
+            <form action="/matchs" method="GET">
+                {% if (actualPage + 1) <= totalPage %} <li class="page-item"><button class="page-link" type="submit"
+                        name="pageNum" value="{{ actualPage + 1 }}">Next</button>
+                    </li>
+                    {% endif %}
+            </form>
+        </ul>
+    </nav>
+    <div class="row row-cols-6 g-3">
+        {% for match in allMatch %}
+        <div class="col">
+            <div class="card" style="width: 18rem; background-color:darkgrey;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ match['home'] }} VS {{ match['visitor'] }}</h5>
+                    <p class="card-text">{{ match['date'] }}</p>
+                    <form action="/joueur" method="POST">
+                        <button class="btn btn-primary " type="submit" name="id" value="{{ idMatch }}">Plus
+                            d'information</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 
 </html>
