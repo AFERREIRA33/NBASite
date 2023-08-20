@@ -30,4 +30,4 @@ def getAMatch(idMatch):
     response = urllib.request.urlopen(url)
     data = response.read()
     dict = json.loads(data)
-    return "toto"
+    return dict

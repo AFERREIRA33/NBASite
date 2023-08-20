@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %}
+
+{% block content %}
+
+<body style="background-color:gray;">
+    <div class="col d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ matchInfo['home_team']['abbreviation'] }} VS {{
+                    matchInfo['visitor_team']['abbreviation'] }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% block body %}
+                {% if matchInfo['date'] %}
+                <li class="list-group-item">Date : {{ matchInfo['date'].split('T')[0] }}</li>
+                {% endif %}
+                {% if matchInfo['season'] %}
+                <li class="list-group-item">Saison : {{ matchInfo['season'] }}</li>
+                {% endif %}
+                {% if matchInfo['status'] %}
+                <li class="list-group-item">Status : {{ matchInfo['status'] }}</li>
+                {% endif %}
+                {% if matchInfo['time'] %}
+                <li class="list-group-item">Temps : {{ matchInfo['time'] }}</li>
+                {% endif %}
+                {% if matchInfo['postseason'] %}
+                <li class="list-group-item"> Match d'apres saison</li>
+                {% endif %}
+                {% endblock body %}
+            </ul>
+        </div>
+    </div>
+    <div class="row row-cols-2 g-3">
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 18rem; background-color:darkgrey;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ matchInfo['home_team']['name'] }}</h5>
+                    <p class="card-text">Score : {{ matchInfo['home_team_score'] }}</p>
+                    <form action="/equipe" method="POST">
+                        <input type="hidden" name="teamFirst" value=0></input>
+                        <input type="hidden" name="teamLast" value=0></input>
+                        <input type="hidden" name="page" value="+"></input>
+                        <button class="btn btn-primary " type="submit" name="id"
+                            value="{{ matchInfo['home_team']['name'] }}">Plus
+                            d'information</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 18rem; background-color:darkgrey;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ matchInfo['visitor_team']['name'] }}</h5>
+                    <p class="card-text">Score : {{ matchInfo['visitor_team_score'] }}</p>
+                    <form action="/equipe" method="POST">
+                        <input type="hidden" name="teamFirst" value=0></input>
+                        <input type="hidden" name="teamLast" value=0></input>
+                        <input type="hidden" name="page" value="+"></input>
+                        <button class="btn btn-primary " type="submit" name="id"
+                            value="{{ matchInfo['visitor_team']['id'] }}">Plus
+                            d'information</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}
